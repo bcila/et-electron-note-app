@@ -7,7 +7,7 @@ function App() {
 
   const fetchNotes = async () => {
     const savedNotes = await window.api.getNotes()
-    console.log(savedNotes);
+    savedNotes.reverse()
     setNotes(savedNotes)
   }
 
@@ -48,8 +48,9 @@ function App() {
         <ul className="note-list">
           {notes.map((note, index) => (
             <li key={index}>
-              <span>{note.note}</span>
-              <button className="delete-btn" onClick={() => deleteNote(index)}>
+              <p className="note-date">{note.date}</p>
+              <span className="note-content">{note.note}</span>
+              <button className="delete-btn" onClick={() => deleteNote(note.id)}>
                 Delete
               </button>
             </li>

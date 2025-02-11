@@ -66,6 +66,7 @@ app.whenReady().then(() => {
     const now = new Date()
     const formattedDate = now.toLocaleString('tr-TR')
     const newNote = {
+      id: crypto.randomUUID(),
       note,
       date: formattedDate
     }
@@ -74,9 +75,9 @@ app.whenReady().then(() => {
   })
 
   // Delete Note
-  ipcMain.on('deleteNote', (_, index) => {
+  ipcMain.on('deleteNote', (_, id) => {
     let notes = store.get('notes', [])
-    notes.splice(index, 1)
+    notes = notes.filter((note) => note.id !== id)
     store.set('notes', notes)
   })
 

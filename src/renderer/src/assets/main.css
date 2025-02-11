@@ -291,6 +291,17 @@ code {
   flex-shrink: 0;
 }
 
+.note-date {
+  position: absolute;
+  top: 0;
+  left: 5px;
+  font-size: 12px;
+  border-bottom: solid 1px #6988e6;
+}
+.note-content {
+  padding-top: 5px;
+}
+
 .delete-btn:hover {
   background: #ff6b81;
   transform: scale(1.05);
