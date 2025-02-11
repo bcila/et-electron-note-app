@@ -63,7 +63,13 @@ app.whenReady().then(() => {
   // Create Note
   ipcMain.on('saveNote', (_, note) => {
     const notes = store.get('notes', [])
-    notes.push(note)
+    const now = new Date()
+    const formattedDate = now.toLocaleString('tr-TR')
+    const newNote = {
+      note,
+      date: formattedDate
+    }
+    notes.push(newNote)
     store.set('notes', notes)
   })
 
