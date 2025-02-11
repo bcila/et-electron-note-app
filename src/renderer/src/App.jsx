@@ -29,26 +29,25 @@ function App() {
 
   return (
     <>
-      <h1>Eterna Note App Task</h1>
-      <div className="note-container">
-        <input
-          type="text"
-          placeholder="Add a note."
-          value={newNote}
-          onChange={(e) => setNewNote(e.target.value)}
-        />
-        <button onClick={addNote}>Save</button>
+      <div className="add-note-container">
+        <h1>✨ Eterna Notes ✨</h1>
+        <div className="note-container">
+          <input
+            type="text"
+            placeholder="Write your note here..."
+            value={newNote}
+            onChange={(e) => setNewNote(e.target.value)}
+          />
+          <button onClick={addNote}>Add Note</button>
+        </div>
       </div>
 
       {/* Listing the notes */}
-      <div
-        className="list-container"
-        style={{ padding: '10px', overflow: 'scroll', maxHeight: 600 }}
-      >
+      <div className="list-container">
         <ul className="note-list">
           {notes.map((note, index) => (
             <li key={index}>
-              {note}
+              <span>{note}</span>
               <button className="delete-btn" onClick={() => deleteNote(index)}>
                 Delete
               </button>
