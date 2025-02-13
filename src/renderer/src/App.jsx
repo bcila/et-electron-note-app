@@ -28,6 +28,12 @@ function App() {
     fetchNotes()
   }, [])
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      addNote()
+    }
+  }
+
   return (
     <>
       <div className="add-note-container">
@@ -38,6 +44,7 @@ function App() {
             placeholder="Write your note here..."
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button onClick={addNote}>Add Note</button>
         </div>
