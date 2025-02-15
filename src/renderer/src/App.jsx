@@ -1,9 +1,15 @@
 import Versions from './components/Versions'
 import { useEffect, useState } from 'react'
+import Modal from 'react-modal'
+
+Modal.setAppElement('#root')
 
 function App() {
   const [notes, setNotes] = useState([])
   const [newNote, setNewNote] = useState('')
+  const [modalIsOpen, setIsOpen] = useState(false)
+  const [editingNote, setEditingNote] = useState(null)
+  const [editedContent, setEditedContent] = useState('')
 
   const fetchNotes = async () => {
     const savedNotes = await window.api.getNotes()
@@ -24,6 +30,14 @@ function App() {
     fetchNotes()
   }
 
+  const editNote = () => {
+    if (editingNote && editedContent.trim() !== '') {
+      window.api.editNote(editingNote.id, editedContent)
+      fetchNotes()
+      closeModal()
+    }
+  }
+
   useEffect(() => {
     fetchNotes()
   }, [])
@@ -32,6 +46,16 @@ function App() {
     if (event.key === 'Enter') {
       addNote()
     }
+  }
+
+  function openModal(note) {
+    setEditingNote(note)
+    setEditedContent(note.note)
+    setIsOpen(true)
+  }
+
+  function closeModal() {
+    setIsOpen(false)
   }
 
   return (
@@ -57,14 +81,39 @@ function App() {
             <li key={index}>
               <p className="note-date">{note.date}</p>
               <span className="note-content">{note.note}</span>
-              <button className="delete-btn" onClick={() => deleteNote(note.id)}>
-                Delete
-              </button>
+              <div className="controls">
+                <button className="delete-btn" onClick={() => deleteNote(note.id)}>
+                  Delete
+                </button>
+                <button className="edit-btn" onClick={() => openModal(note)}>
+                  Edit
+                </button>
+              </div>
             </li>
           ))}
         </ul>
       </div>
       <Versions></Versions>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Note"
+        className="Modal"
+        // overlayClassName="Overlay"
+        shouldCloseOnOverlayClick={true}
+      >
+        <h4>Edit Note</h4>
+        <input
+          type="text"
+          value={editedContent}
+          onChange={(e) => setEditedContent(e.target.value)}
+        />
+        <div className="controls-modal">
+          <button onClick={editNote}>Save</button>
+          <button onClick={closeModal}>X</button>
+        </div>
+      </Modal>
     </>
   )
 }

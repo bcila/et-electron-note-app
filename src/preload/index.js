@@ -5,7 +5,8 @@ import { electronAPI } from '@electron-toolkit/preload'
 const api = {
   getNotes: () => ipcRenderer.invoke('getNotes'),
   saveNote: (note) => ipcRenderer.send('saveNote', note),
-  deleteNote: (index) => ipcRenderer.send('deleteNote', index)
+  deleteNote: (id) => ipcRenderer.send('deleteNote', id),
+  editNote: (id, noteUpdated) => ipcRenderer.send('editNote', id, noteUpdated)
 }
 
 // Use `contextBridge` APIs to expose Electron APIs to

@@ -81,6 +81,12 @@ app.whenReady().then(() => {
     store.set('notes', notes)
   })
 
+  ipcMain.on('editNote', (_, id, noteUpdated) => {
+    let notes = store.get('notes', [])
+    notes = notes.map((note) => (note.id === id ? { ...note, note: noteUpdated } : note))
+    store.set('notes', notes)
+  })
+
   createWindow()
 
   app.on('activate', function () {

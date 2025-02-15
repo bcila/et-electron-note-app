@@ -21,7 +21,8 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
-    "electron-store": "^10.0.1"
+    "electron-store": "^10.0.1",
+    "react-modal": "^3.16.3"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
